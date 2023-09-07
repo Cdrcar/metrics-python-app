@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   name: bookstore-backend
   labels:
-    app: bookstore
+    app: bookstore-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bookstore
+      app: bookstore-backend
   template:
     metadata:
       labels:
-        app: bookstore
+        app: bookstore-backend
     spec:
       containers:
       - name: bookstore-backend
-        image: cdrcar/bookstore-backend-api:1.0
+        image: cdrcar/bookstore-backend:1.0
         ports:
         - containerPort: 5000

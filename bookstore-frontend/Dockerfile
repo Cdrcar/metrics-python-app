@@ -16,3 +16,4 @@ FROM nginx:1.21.0-alpine
 COPY --from=build /build /usr/share/nginx/html
 # Containers run nginx with global directives and daemon off
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+EXPOSE 80 
