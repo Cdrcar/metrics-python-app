@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: bookstore-backend
-        image: cdrcar/bookstore-backend:1.0
+        image: cdrcar/bookstore-backend:1.1
         ports:
         - containerPort: 5000

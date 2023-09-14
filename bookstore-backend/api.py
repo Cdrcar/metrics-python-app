@@ -1,9 +1,14 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse, abort, marshal, fields
 from flask_cors import CORS
+from prometheus_client import start_http_server, Counter
+from prometheus_flask_exporter import PrometheusMetrics
 
 # Initialize Flask
 app = Flask(__name__)
+
+metrics = PrometheusMetrics(app)
+
 CORS(app)
 api = Api(app)
 
@@ -38,10 +43,15 @@ bookFields = {
 
 
 class BookList(Resource):
+# Create a counter for /books
+    book_visits_counter = Counter("bookstore_books_visits_total", "Total number of visits to /books")
+
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
 
     def get(self):
+        # Increment the /books visits counter
+        BookList.book_visits_counter.inc()
         return{"books": [marshal(book, bookFields) for book in books]}
 
 
