@@ -6,11 +6,12 @@ from prometheus_flask_exporter import PrometheusMetrics
 
 # Initialize Flask
 app = Flask(__name__)
-
-metrics = PrometheusMetrics(app)
-
 CORS(app)
 api = Api(app)
+metrics = PrometheusMetrics(app)
+
+# Static metric for the application version
+metrics.info('app_info', 'Application info', version='1.0.0')
 
 # A List of Dicts to store all of the books
 books = [{
@@ -43,15 +44,17 @@ bookFields = {
 
 
 class BookList(Resource):
-# Create a counter for /books
-    book_visits_counter = Counter("bookstore_books_visits_total", "Total number of visits to /books")
+# Create a counter for /books (Alternative to the decorator @metrics.counter)
+#    book_visits_counter = Counter("bookstore_books_visits_total", "Total number of visits to /books")
 
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-
+# Add decorator
+    @metrics.counter('get_books', 'Count of invocation by status code', 
+        labels={'status_code': lambda r: r.status_code})
     def get(self):
-        # Increment the /books visits counter
-        BookList.book_visits_counter.inc()
+        # Increment the /books visits counter (Alternative to the decorator @metrics.counter)
+       # BookList.book_visits_counter.inc()
         return{"books": [marshal(book, bookFields) for book in books]}
 
 
