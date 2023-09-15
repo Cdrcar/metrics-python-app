@@ -1,22 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bookstore-frontend 
+  name: bookstore-frontend
   labels:
-    app: bookstore-frontend 
+    app: bookstore-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: bookstore-frontend 
+      app: bookstore-frontend
   template:
     metadata:
       labels:
-        app: bookstore-frontend 
+        app: bookstore-frontend
     spec:
       containers:
-      - name: bookstore-frontend 
-        image: cdrcar/bookstore-frontend:1.0
-        ports:
-        - containerPort: 80
- 
+        - name: bookstore-frontend
+          image: cdrcar/bookstore-frontend:1.1
+          ports:
+            - containerPort: 80
