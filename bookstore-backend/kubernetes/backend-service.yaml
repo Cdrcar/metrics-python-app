@@ -4,11 +4,15 @@ metadata:
   name: backend-service
   labels:
     app: backend-service
+  annotations:
+    prometheus.io/port: "backend-api"
+    prometheus.io/scrape: "true"
 spec:
   selector:
     app: bookstore-backend 
   ports:
     - protocol: TCP
       port: 5050
+      name: backend-api
       targetPort: 5000
   type: LoadBalancer
