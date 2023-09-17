@@ -4,6 +4,7 @@ metadata:
   name: backend-service
   labels:
     app: backend-service
+    app.kubernetes.io/part-of: bookstore
   annotations:
     prometheus.io/port: "backend-api"
     prometheus.io/scrape: "true"
