@@ -6,7 +6,7 @@ metadata:
     app: backend-service
     app.kubernetes.io/part-of: bookstore
   annotations:
-    prometheus.io/port: "backend-api"
+    prometheus.io/port: "metrics-port"
     prometheus.io/scrape: "true"
 spec:
   selector:
@@ -14,6 +14,6 @@ spec:
   ports:
     - protocol: TCP
       port: 5050
-      name: backend-api
+      name: metrics-port
       targetPort: 5000
   type: LoadBalancer
